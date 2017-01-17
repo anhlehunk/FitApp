@@ -1,11 +1,15 @@
 package com.example.anh.fitapp;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +31,8 @@ import static android.widget.Toast.makeText;
 public class ExerciseActivity extends AppCompatActivity {
 
     //Assign variables
-    public ListView lv;
+    ImageView image;
+    public Spinner spinner;
     public ArrayList<String> idlist;
     public ArrayList<String> namelist;
 
@@ -38,9 +43,33 @@ public class ExerciseActivity extends AppCompatActivity {
         new Task().execute();
 
         //declarations
+        final Resources res = getResources();
+        image = (ImageView) findViewById(R.id.muscle_image);
         idlist = new ArrayList<>();
         namelist = new ArrayList<>();
-        lv = (ListView)findViewById(R.id.searchlist);
+        spinner = (Spinner)findViewById(R.id.searchlist);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView idView = (TextView) view.findViewById(R.id.muscle_id);
+                String muscleID = idView.getText().toString();
+
+                Toast succesful = makeText(ExerciseActivity.this, muscleID , Toast.LENGTH_SHORT);
+                succesful.show();
+
+                switch(muscleID){
+                    case "1": image.setImageDrawable(res.getDrawable(R.drawable.runbutton));
+
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
 
     }
 
@@ -90,9 +119,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
-                }
+                    }}
 
+                //set adapter on the listview
+                ExerciseAdapter arrayAdapter = new ExerciseAdapter(ExerciseActivity.this, namelist, idlist);
+                ExerciseActivity.this.spinner.setAdapter(arrayAdapter);
 
                 } catch (JSONException e) {
                 e.printStackTrace();
