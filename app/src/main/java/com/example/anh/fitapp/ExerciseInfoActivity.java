@@ -1,20 +1,10 @@
 package com.example.anh.fitapp;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,79 +12,47 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import static android.widget.Toast.makeText;
-
-public class ExerciseFoundActivity extends AppCompatActivity {
+public class ExerciseInfoActivity extends AppCompatActivity {
 
     String searched_id;
     String searched_name;
-    TextView lookedFor;
-    public ArrayList<String> idlist;
-    public ArrayList<String> namelist;
-    public ListView lv;
-    String exerciseName;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercise_found);
-
+        setContentView(R.layout.activity_exercise_info);
 
         //Get extras from previous activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            searched_id = extras.getString("searched_id");
-            searched_name = extras.getString("searched_name");
+            searched_id = extras.getString("searched_exercise_id");
+            searched_name = extras.getString("searched_exercise");
         }
-
-        idlist = new ArrayList<>();
-        namelist = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.exercises_list);
-        lookedFor = (TextView) findViewById(R.id.muscle_title);
-        lookedFor.setText("Looked for: " + searched_name);
-        executeTask();
-
-        // Handles clicks items of the list
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            // takes the ID and give it to an intent, because the id is required to search for one specific item
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView nameView = (TextView) view.findViewById(R.id.muscle_name);
-                TextView idView = (TextView) view.findViewById(R.id.muscle_id);
-                String exerciseName = nameView.getText().toString();
-                String exerciseID = idView.getText().toString();
-
-                Intent searchExercise = new Intent(ExerciseFoundActivity.this, ExerciseInfoActivity.class);
-
-                searchExercise.putExtra("searched_exercise", exerciseName);
-                searchExercise.putExtra("searched_exercise_id", exerciseID);
-                startActivity(searchExercise);
-            }
-        });
+        executeInFo();
     }
 
+    public class ExercisesInfo extends AsyncTask<String, Object, String> {
 
-    public class ExercisesTask extends AsyncTask<String, Object, String> {
 
         @Override
         protected String doInBackground(String... params) {
 
 
+
             try {
                 //the url is built with the input of the user
-                InputStream input = new URL("https://wger.de/api/v2/exercise/?format=json&language=2&muscles=" + searched_id).openStream();
+                Log.d("proberen2", searched_name + searched_id);
+                InputStream input = new URL("https://wger.de/api/v2/exercise/?format=json&language=2&name=" + URLEncoder.encode(searched_name, "UTF-8")).openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 StringBuilder result = new StringBuilder();
                 String line;
                 while((line = reader.readLine()) != null) {
                     result.append(line);
                 }
+                Log.d("proberen2", String.valueOf(result));
                 return String.valueOf(result);
             }
             catch (IOException e) {
@@ -104,7 +62,7 @@ public class ExerciseFoundActivity extends AppCompatActivity {
         }
 
         public void onPostExecute(String result) {
-            try {
+           /* try {
                 //pick out the needed data out of the query
                 JSONObject jsonObject = new JSONObject(result);
 
@@ -135,26 +93,18 @@ public class ExerciseFoundActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            }}
-    }
+            }}*/
+        }}
 
-
-
-
-
-    public void executeTask() {
+    public void executeInFo() {
 
         try {
-            new ExercisesTask().execute().get();
+            new ExercisesInfo().execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 }

@@ -44,7 +44,8 @@
             android:label="@string/title_activity_running" />
         <activity android:name=".StatActivity" />
         <activity android:name=".ExerciseActivity" />
-        <activity android:name=".ExerciseFoundActivity"></activity>
+        <activity android:name=".ExerciseFoundActivity" />
+        <activity android:name=".ExerciseInfoActivity"></activity>
     </application>
 
 </manifest>
