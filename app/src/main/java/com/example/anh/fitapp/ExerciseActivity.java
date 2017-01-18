@@ -1,5 +1,6 @@
 package com.example.anh.fitapp;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -26,6 +28,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static android.R.id.button1;
 import static android.widget.Toast.makeText;
 
 public class ExerciseActivity extends AppCompatActivity {
@@ -35,6 +38,9 @@ public class ExerciseActivity extends AppCompatActivity {
     public Spinner spinner;
     public ArrayList<String> idlist;
     public ArrayList<String> namelist;
+    Button b1;
+    Button button1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +53,21 @@ public class ExerciseActivity extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.muscle_image);
         idlist = new ArrayList<>();
         namelist = new ArrayList<>();
+        b1 = (Button) findViewById(R.id.search_id);
+
+
+
         spinner = (Spinner)findViewById(R.id.searchlist);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView idView = (TextView) view.findViewById(R.id.muscle_id);
                 String muscleID = idView.getText().toString();
-
                 Toast succesful = makeText(ExerciseActivity.this, muscleID , Toast.LENGTH_SHORT);
                 succesful.show();
 
                 switch(muscleID){
                     case "1": image.setImageDrawable(res.getDrawable(R.drawable.runbutton));
-
 
                 }
             }
@@ -69,11 +77,19 @@ public class ExerciseActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
+
     public class Task extends AsyncTask<String, Object, String> {
+
+
+        protected void onPreExecute() {
+            button1 = (Button) findViewById(R.id.search_id);
+            button1.setVisibility(View.INVISIBLE);
+            Toast succesful = makeText(ExerciseActivity.this, "Loading..." , Toast.LENGTH_SHORT);
+            succesful.show();
+        }
+
         @Override
         protected String doInBackground(String... params) {
             try {
@@ -95,6 +111,9 @@ public class ExerciseActivity extends AppCompatActivity {
         }
 
         public void onPostExecute(String result) {
+            b1.setVisibility(View.VISIBLE);
+            Toast succesful = makeText(ExerciseActivity.this, "Loaded" , Toast.LENGTH_SHORT);
+            succesful.show();
             try {
                 //pick out the needed data out of the query
                 JSONObject jsonObject = new JSONObject(result);
@@ -127,11 +146,25 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }}
+
+}
+    public void searchExercise(View view) {
+        TextView idView = (TextView) findViewById(R.id.muscle_id);
+        TextView muscleView = (TextView) findViewById(R.id.muscle_name);
 
 
-        }
+        String muscleID = idView.getText().toString();
+        String muscleName = muscleView.getText().toString();
 
-}}
+
+
+        Intent searchExercise = new Intent(this, ExerciseFoundActivity.class);
+        searchExercise.putExtra("searched_id", muscleID);
+        searchExercise.putExtra("searched_name", muscleName);
+        startActivity(searchExercise);
+
+
+        }}
 
 
