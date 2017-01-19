@@ -67,7 +67,37 @@ public class ExerciseActivity extends AppCompatActivity {
                 succesful.show();
 
                 switch(muscleID){
-                    case "1": image.setImageDrawable(res.getDrawable(R.drawable.runbutton));
+                    case "1": image.setImageDrawable(res.getDrawable(R.drawable.id1));
+                        break;
+                    case "2": image.setImageDrawable(res.getDrawable(R.drawable.id2));
+                        break;
+                    case "3": image.setImageDrawable(res.getDrawable(R.drawable.id3));
+                        break;
+                    case "4": image.setImageDrawable(res.getDrawable(R.drawable.id4));
+                        break;
+                    case "5": image.setImageDrawable(res.getDrawable(R.drawable.id5));
+                        break;
+                    case "6": image.setImageDrawable(res.getDrawable(R.drawable.id6));
+                        break;
+                    case "7": image.setImageDrawable(res.getDrawable(R.drawable.id7));
+                        break;
+                    case "8": image.setImageDrawable(res.getDrawable(R.drawable.id8));
+                        break;
+                    case "9": image.setImageDrawable(res.getDrawable(R.drawable.id9));
+                        break;
+                    case "10": image.setImageDrawable(res.getDrawable(R.drawable.id10));
+                        break;
+                    case "11": image.setImageDrawable(res.getDrawable(R.drawable.id11));
+                        break;
+                    case "12": image.setImageDrawable(res.getDrawable(R.drawable.id12));
+                        break;
+                    case "13": image.setImageDrawable(res.getDrawable(R.drawable.id13));
+                        break;
+                    case "14": image.setImageDrawable(res.getDrawable(R.drawable.id14));
+                        break;
+                    case "15": image.setImageDrawable(res.getDrawable(R.drawable.id15));
+                        break;
+
 
                 }
             }
