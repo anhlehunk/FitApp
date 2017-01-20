@@ -23,3 +23,4 @@ The app I want to build, should mainly consist of an exercise part, where the us
 6.	An API containing information about exercises, and the google maps API
 7.	I am not sure yet, but I think that implementing google maps will be a hard part. Maybe the use of sensors of the mobile devices will cause difficulties too.
 8.	There are many fitness apps on the market, but they mainly consist of only one category, like a step counter, or an app that stimulates exercises. The basic fitness mainly contains of exercises an user can do, and sometimes a reminder to keep the user motivated, or remind the user. 
+f
