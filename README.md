@@ -24,3 +24,12 @@ The app I want to build, should mainly consist of an exercise part, where the us
 7.	I am not sure yet, but I think that implementing google maps will be a hard part. Maybe the use of sensors of the mobile devices will cause difficulties too.
 8.	There are many fitness apps on the market, but they mainly consist of only one category, like a step counter, or an app that stimulates exercises. The basic fitness mainly contains of exercises an user can do, and sometimes a reminder to keep the user motivated, or remind the user. 
 
+###Update week 2
+The app I want to built is a fitness app, consisting of mainly 4 activities the user can do:
+
+- The step counter
+- The exercise activity, where an user can search for certain exercises, depending on the muscle group they want to train.
+- A Running activity, which shows the user a map of the current location, and plot a running route on the map. This activity also calculates the estimated time and distance.
+- An activity that shows the achievements of the user and the data that the user chose save.
+
+The user can login and save data: this data will be saved with FireBase. 
