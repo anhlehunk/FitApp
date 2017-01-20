@@ -6,16 +6,6 @@ Anh Nguyen
 I want to build an app to make people get more fit. 
 The app I want to build, should mainly consist of an exercise part, where the user can choose to run, or do other kind of exercises. Later on, if possible, I want to implement a food database too.
 
-###Update week 2
-The app I want to built is a fitness app, consisting of mainly 4 activities the user can do:
-
-- The step counter
-- The exercise activity, where an user can search for certain exercises, depending on the muscle group they want to train.
-- A Running activity, which shows the user a map of the current location, and plot a running route on the map. This activity also calculates the estimated time and distance.
-- An activity that shows the achievements of the user and the data that the user chose save.
-
-The user can login and save data: this data will be saved with FireBase. 
-
 
 1.	This app will make it easier for a certain user to lose some weight or do some exercises. This will help the user getting a better lifestyle and to live a healthier life. This app will help the user get on a certain track with exercises.
 
