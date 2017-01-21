@@ -7,8 +7,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -17,7 +23,7 @@ import android.widget.Toast;
 
 
 
-public class StepCountActivity extends AppCompatActivity implements SensorEventListener{
+public class StepCountActivity extends ActionBarActivity implements SensorEventListener{
     ProgressBar prg;
     Button button;
     private SensorManager sensorManager;
@@ -44,6 +50,28 @@ public class StepCountActivity extends AppCompatActivity implements SensorEventL
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.exercise:
+                startActivity(new Intent(this, ExerciseActivity.class));
+                return true;
+            case R.id.stat:
+                startActivity(new Intent(this, StatActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void reset(View v) {

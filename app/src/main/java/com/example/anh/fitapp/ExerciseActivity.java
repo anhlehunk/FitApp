@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -106,9 +109,32 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.exercise_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.run:
+                startActivity(new Intent(this, RunningActivity.class));
+                return true;
+            case R.id.stat:
+                startActivity(new Intent(this, StatActivity.class));
+                return true;
+            case R.id.step:
+                startActivity(new Intent(this, StepCountActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public class Task extends AsyncTask<String, Object, String> {
 

@@ -4,47 +4,84 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkgrey"
+    android:background="@drawable/backgroundmain"
     >
 
-
     <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:onClick="step"
-        android:src="@drawable/stepbutton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="26dp"
-        android:id="@+id/stepButton" />
-
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:onClick="stat"
-        android:src="@drawable/statbutton"
-        android:layout_margin="26dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/runButton"/>
-
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:onClick="run"
-        android:src="@drawable/runbutton"
-        android:layout_marginRight="26dp"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/runButton"/>
-
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:onClick="exercise"
-        android:src="@drawable/exercisebutton"
+        android:src="@drawable/stepbutton1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="26dp"
-        android:layout_above="@+id/stepButton" />
+        android:layout_marginTop="26dp"
+        android:id="@+id/stepButton"
+        android:layout_above="@+id/steptext"
+        android:layout_marginBottom="5dp"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:onClick="stat"
+        android:src="@drawable/statbutton1"
+        android:layout_marginRight="26dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/runButton"
+        android:layout_above="@+id/statText"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="5dp"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:onClick="run"
+        android:src="@drawable/runbutton1"
+        android:layout_marginRight="26dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/runButton"
+        android:layout_marginBottom="26dp"
+
+        />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:onClick="exercise"
+        android:src="@drawable/exercisebutton1"
+        android:layout_above="@+id/stepButton"
+        android:layout_alignLeft="@+id/stepButton"
+        android:layout_alignStart="@+id/stepButton"
+        android:id="@+id/imageView"
+        android:layout_marginBottom="26dp"/>
+
+    <TextView
+        android:id="@+id/steptext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step counter"
+        android:textSize="20dp"
+        android:textColor="@color/silver"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/stepButton"
+        android:layout_alignEnd="@+id/stepButton"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-thin"/>
+
+    <TextView
+        android:id="@+id/statText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Stat"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+
+        android:layout_alignBaseline="@+id/steptext"
+        android:layout_alignBottom="@+id/steptext"
+        android:layout_alignRight="@+id/runButton"
+        android:layout_alignEnd="@+id/runButton"
+        android:layout_marginRight="38dp"
+        android:layout_marginEnd="38dp" />
+
 </RelativeLayout>

@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/exerciseback1"
     tools:context="com.example.anh.fitapp.ExerciseFoundActivity">
 
     <TextView
@@ -15,14 +16,18 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:id="@+id/muscle_title"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/muscle_title"
         android:layout_margin="10dp"
-        android:id="@+id/exercises_list">
+        android:id="@+id/exercises_list"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin">
 
     </ListView>
 
