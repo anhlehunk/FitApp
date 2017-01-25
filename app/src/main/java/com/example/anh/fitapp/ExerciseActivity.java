@@ -60,6 +60,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
 
+
         spinner = (Spinner)findViewById(R.id.searchlist);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -71,6 +72,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 switch(muscleID){
                     case "1": image.setImageDrawable(res.getDrawable(R.drawable.id1));
+
                         break;
                     case "2": image.setImageDrawable(res.getDrawable(R.drawable.id2));
                         break;
@@ -197,7 +199,7 @@ public class ExerciseActivity extends AppCompatActivity {
                     }}
 
                 //set adapter on the listview
-                ExerciseAdapter arrayAdapter = new ExerciseAdapter(ExerciseActivity.this, namelist, idlist);
+                ExerciseMuscleAdapter arrayAdapter = new ExerciseMuscleAdapter(ExerciseActivity.this, namelist, idlist);
                 ExerciseActivity.this.spinner.setAdapter(arrayAdapter);
 
                 } catch (JSONException e) {
