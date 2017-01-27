@@ -7,7 +7,7 @@
             android:thickness="15dp"
             android:useLevel="false"
             >
-            <solid android:color="#26FF0000" />
+            <solid android:color="#2600FFFF" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
@@ -18,7 +18,7 @@
                 android:thickness="15dp"
                 android:useLevel="false"
                 >
-                <solid android:color="@color/red" />
+                <solid android:color="@color/aqua" />
             </shape>
         </clip>
     </item>

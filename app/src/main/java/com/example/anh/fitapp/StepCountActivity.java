@@ -26,9 +26,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.view.View.GONE;
 import static com.example.anh.fitapp.R.id.editStep;
@@ -40,15 +46,27 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     private SensorManager sensorManager;
     private TextView count;
     private TextView countStep;
+    private TextView totalText;
     boolean activityRunning;
     private int stepsInSensor = 0;
     private int stepsAtReset;
+    private int goalSave;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public static final String myPreference = "mypreference";
     String enteredSteps;
     int enteredStepsInt;
     EditText editTextStep;
+    TextView setGoal;
+    int stringNum;
+    private Button mFirebaseBtn;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
+    int stepsSinceReset;
+    int stepsTotalReset;
+    int stepsTotal;
+    String saveData;
 
 
 
@@ -59,11 +77,49 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         SharedPreferences prefs = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         editor = prefs.edit();
         stepsAtReset = prefs.getInt("stepsAtReset", 0);
+        stepsTotalReset = prefs.getInt("stepsTotalReset", 0);
+
+
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_count);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
+
+
+        Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                mDatabase.child("Steps").setValue(saveData);
+
+
+            }
+        }, 0, 1000);
+
+       /* mFirebaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = mAuth.getCurrentUser().getEmail();
+                mDatabase.child("Email").setValue(name);
+
+
+            }
+        }); */
+
+
+
+        totalText = (TextView) findViewById(R.id.total);
+        goalSave = prefs.getInt("stepsEntered", enteredStepsInt);
         editTextStep = (EditText) findViewById(R.id.editStep);
+        setGoal = (TextView) findViewById(R.id.setGoal);
+        setGoal.setText(String.valueOf(goalSave));
+        stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
         button = (Button) findViewById(R.id.enterSteps);
         button.setOnClickListener(new View.OnClickListener()
         {
@@ -73,22 +129,26 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                 if (Objects.equals(enteredSteps, "")){
                     editTextStep.setVisibility(View.VISIBLE);
                     Toast.makeText(StepCountActivity.this, "Please enter your goal!", Toast.LENGTH_SHORT)
-                            .show();}
+                            .show();
+                } else{
 
-                else{
                 if (editTextStep.getVisibility() == View.VISIBLE){
                     enteredStepsInt = Integer.parseInt(enteredSteps);
                     editTextStep.setText("");
+                    count.setVisibility(View.VISIBLE);
+                    editor.remove("enteredSteps");
+                    editor.putInt("stepsEntered", enteredStepsInt);
+                    editor.commit();
+                    setGoal.setText(enteredSteps);
+                    setGoal.setVisibility(View.VISIBLE);
                     editTextStep.setVisibility(View.GONE);
-                }
-                else {
-                    editTextStep.setVisibility(View.VISIBLE);
+
+                } else {
+
+                    editTextStep.setVisibility(View.GONE);
+                    //setGoal.setVisibility(View.VISIBLE);
+
                 }}
-
-
-
-
-
                 }});
 
 
@@ -122,6 +182,17 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         return super.onOptionsItemSelected(item);
     }
 
+    public void home(View view) {
+        Toast.makeText(this, "Sensor not available", Toast.LENGTH_LONG).show();
+        stepsTotalReset = stepsInSensor;
+        SharedPreferences.Editor editor =
+                getSharedPreferences(myPreference, MODE_PRIVATE).edit();
+        editor.putInt("stepsTotalReset", stepsTotalReset);
+        editor.commit();
+
+        totalText.setText(String.valueOf(0));
+    }
+
     public void reset(View v) {
         stepsAtReset = stepsInSensor;
         SharedPreferences.Editor editor =
@@ -130,10 +201,13 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         editor.commit();
 
         // you can now display 0:
+        countStep.setText(String.valueOf(0));
         count.setText(String.valueOf(0));
-
         prg.setProgress(0);
+
     }
+
+
 
     @Override
     protected void onResume() {
@@ -162,15 +236,21 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
 
         if(activityRunning){
             stepsInSensor = Integer.valueOf((int) event.values[0]);
-            int stepsSinceReset = stepsInSensor - stepsAtReset;
+            stepsSinceReset = stepsInSensor - stepsAtReset;
+            stepsTotal = stepsInSensor - stepsTotalReset;
+            saveData = totalText.getText().toString();
+
+
 
             double num = stepsSinceReset;
-            double sum = enteredStepsInt;
+            double sum = stringNum;
 
             String str = String.format("%.1f", (num/sum) * 100.0);
             countStep.setText(String.valueOf(stepsSinceReset));
-            float percentage = ((float) stepsSinceReset / enteredStepsInt) * 100;
+            stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
+            float percentage = ((float) stepsSinceReset / stringNum) * 100;
             count.setText(str + "%");
+            totalText.setText(String.valueOf(stepsTotal));
             Log.d("check", String.valueOf(percentage));
             prg.setProgress((int) percentage);
         }else{
@@ -181,11 +261,7 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    public void home(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
+
 
 }
 

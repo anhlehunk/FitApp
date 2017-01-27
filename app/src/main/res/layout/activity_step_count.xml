@@ -11,6 +11,17 @@
     android:background="@drawable/stepback"
     tools:context="com.example.anh.fitapp.StepCountActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total"
+        android:textColor="@color/silver"
+        android:textSize="30dp"
+        android:fontFamily="sans-serif-thin"
+        android:layout_below="@+id/setGoal"
+        android:text="0"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,15 +52,27 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar"
+        android:layout_below="@+id/setGoal"
         android:fontFamily="sans-serif-thin"
         android:textSize="30dp"
         android:id="@+id/editStep"
         android:textColor="@color/silver"
-        android:visibility="visible"
+        android:visibility="gone"
         android:inputType="phone"
-        android:digits="1234567890"/>
+        android:digits="1234567890"
+        android:background="@color/black"
+        />
 
+    <TextView
+        android:id="@+id/setGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/silver"
+        android:textSize="30dp"
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        />
 
     <TextView
         android:id="@+id/countText"
@@ -98,7 +121,8 @@
         android:layout_alignTop="@+id/progressBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="133dp"
-        android:fontFamily="sans-serif-light"/>
+        android:fontFamily="sans-serif-light"
+        />
 
     />
 </RelativeLayout>

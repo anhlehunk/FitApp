@@ -3,15 +3,39 @@ package com.example.anh.fitapp;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import static android.widget.Toast.makeText;
+import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
+
+public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener{
+
+    private static int RC_SIGN_IN = 0;
+    private static String TAG = "MAIN_ACTIVITY";
+    private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +44,53 @@ public class MainActivity extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
+        String name = mAuth.getCurrentUser().getEmail();
+        mDatabase.child("Email").setValue(name);
+        if(mAuth.getCurrentUser() != null){
+            //if already logged in
+            TextView currentUser = (TextView) findViewById(R.id.loginInfo);
+            currentUser.setText(mAuth.getCurrentUser().getEmail());
+            ;
+
+
+        } else {
+            //If not logged in, the login screen will be created
+            startActivityForResult(AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    //assign a theme to the loginscreen
+                    //.setTheme(R.style.FirebaseLoginTheme)
+                    .setProviders(
+                            AuthUI.EMAIL_PROVIDER,
+                            AuthUI.GOOGLE_PROVIDER)
+                    .build(), RC_SIGN_IN);
+            }
+
+
+
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN){
+            //Check if the login is succesful
+            if(resultCode == RESULT_OK){
+                String userEmail = mAuth.getCurrentUser().getEmail();
+                Log.d("AUTH", userEmail);
+
+                // Toast
+                Toast succesful = makeText(MainActivity.this, "Logged in as: " + userEmail , Toast.LENGTH_SHORT);
+                succesful.show();
+                TextView currentUser = (TextView) findViewById(R.id.loginInfo);
+                currentUser.setText(mAuth.getCurrentUser().getEmail());
+            }
+            else{
+                Log.d("AUTH","not Authenticated");
+            }}}
 
 
     public void step(View view) {
@@ -46,5 +115,34 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, StatActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+
+    public void signOut(View v) {
+
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("AUTH", "USER LOGGED OUT");
+                        startActivityForResult(AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                //.setTheme(R.style.FirebaseLoginTheme)
+                                .setProviders(
+                                        AuthUI.EMAIL_PROVIDER,
+                                        AuthUI.GOOGLE_PROVIDER)
+
+                                .build(), RC_SIGN_IN);
+                        //toast
+                        Toast succesful = makeText(MainActivity.this, "Logged out" , Toast.LENGTH_SHORT);
+                        succesful.show();
+                    }
+                });
     }
 }

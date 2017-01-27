@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmain"
     >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginInfo"
+        android:textColor="@color/silver"
+        android:textSize="30dp"
+        android:fontFamily="sans-serif-thin"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginInfo"
+        android:text="logout"
+        android:id="@+id/signOut"
+        android:onClick="signOut"
+        />
 
     <ImageView
         android:layout_width="120dp"
