@@ -52,3 +52,13 @@ Presentation
 - Make it possible for the user to save data. (Finish implementation FireBase)
 - Add more navigation functionalities. (drawer)
 - Finishing the Running activity.
+
+## Week 3
+### Sunday
+I thought about the design of the app, and how the navigation would work. I decided to have a navigation in the action bar with the use of icons.
+I designed the icons and the background themes of the app.
+
+### Monday and tuesday
+I changed the UI of my app, to what I find more appealing to the eye. I have chosen for a dark theme with the use of simple flatdesign icons to navigate. I also made it possible for the user to set a certain goal for the step counter activity. The amount of steps set by the user will be saved locally. 
+
+
