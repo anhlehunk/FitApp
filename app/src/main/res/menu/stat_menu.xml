@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/exercise"
+        android:title="home"
+        android:icon="@drawable/exercisebutton1"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/step"
+        android:title="home"
+        android:icon="@drawable/stepbutton1"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/run"
+        android:title="home"
+        android:icon="@drawable/runbutton1"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/home"
+        android:title="home"
+        android:icon="@drawable/home"
+        app:showAsAction="always"
+        />
+
+</menu>

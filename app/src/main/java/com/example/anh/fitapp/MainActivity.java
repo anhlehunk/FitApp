@@ -42,18 +42,19 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
         super.onCreate(savedInstanceState);
 
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
-        String name = mAuth.getCurrentUser().getEmail();
-        mDatabase.child("Email").setValue(name);
         if(mAuth.getCurrentUser() != null){
             //if already logged in
+
+            mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
+            String name = mAuth.getCurrentUser().getEmail();
+            mDatabase.child("Email").setValue(name);
             TextView currentUser = (TextView) findViewById(R.id.loginInfo);
             currentUser.setText(mAuth.getCurrentUser().getEmail());
-            ;
-
 
         } else {
             //If not logged in, the login screen will be created
@@ -66,6 +67,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                             AuthUI.GOOGLE_PROVIDER)
                     .build(), RC_SIGN_IN);
             }
+
 
 
 

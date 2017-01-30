@@ -8,12 +8,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/exerciseback1"
     tools:context="com.example.anh.fitapp.ExerciseInfoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1A000000"
+        android:background="#CCFFFFFF"
         android:id="@+id/scroll">
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -24,16 +25,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:id="@+id/exercise_title"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/black"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/exercise_description"
         android:layout_margin="10dp"
-        android:layout_below="@+id/exercise_title" />
+        android:layout_below="@+id/exercise_title"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/black"
+        android:textSize="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,10 +64,20 @@
         android:layout_alignParentRight="true"
         android:id="@+id/image2"
         android:layout_below="@+id/exercise_description"
-
         />
+
+
 
     </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="save"
+        android:onClick="saveExercise"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.example.anh.fitapp;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -79,14 +82,10 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         stepsAtReset = prefs.getInt("stepsAtReset", 0);
         stepsTotalReset = prefs.getInt("stepsTotalReset", 0);
 
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_count);
 
         mAuth = FirebaseAuth.getInstance();
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
 
 
@@ -143,6 +142,7 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                     setGoal.setVisibility(View.VISIBLE);
                     editTextStep.setVisibility(View.GONE);
 
+
                 } else {
 
                     editTextStep.setVisibility(View.GONE);
@@ -171,12 +171,17 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         switch (item.getItemId()){
             case R.id.home:
                 startActivity(new Intent(this, MainActivity.class));
+                StepCountActivity.this.finish();
+
                 return true;
             case R.id.exercise:
                 startActivity(new Intent(this, ExerciseActivity.class));
+                StepCountActivity.this.finish();
+
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
+                StepCountActivity.this.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -260,6 +265,8 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
+
 
 
 

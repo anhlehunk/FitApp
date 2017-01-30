@@ -43,6 +43,8 @@ public class ExerciseActivity extends AppCompatActivity {
     public ArrayList<String> namelist;
     Button b1;
     Button button1;
+    String muscleID;
+    TextView translatedMuscleView;
 
 
     @Override
@@ -57,8 +59,7 @@ public class ExerciseActivity extends AppCompatActivity {
         idlist = new ArrayList<>();
         namelist = new ArrayList<>();
         b1 = (Button) findViewById(R.id.search_id);
-
-
+        translatedMuscleView = (TextView) findViewById(R.id.translated_muscle_name);
 
 
         spinner = (Spinner)findViewById(R.id.searchlist);
@@ -66,7 +67,8 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView idView = (TextView) view.findViewById(R.id.muscle_id);
-                String muscleID = idView.getText().toString();
+                TextView muscleView = (TextView) findViewById(R.id.muscle_name);
+                muscleID = idView.getText().toString();
                 Toast succesful = makeText(ExerciseActivity.this, muscleID , Toast.LENGTH_SHORT);
                 succesful.show();
 
@@ -75,6 +77,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                         break;
                     case "2": image.setImageDrawable(res.getDrawable(R.drawable.id2));
+
                         break;
                     case "3": image.setImageDrawable(res.getDrawable(R.drawable.id3));
                         break;
@@ -105,12 +108,18 @@ public class ExerciseActivity extends AppCompatActivity {
 
 
                 }
+
+
+
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -204,7 +213,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                 e.printStackTrace();
-            }}
+            }
+
+
+
+        }
 
 }
     public void searchExercise(View view) {

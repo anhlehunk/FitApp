@@ -8,9 +8,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,6 +40,8 @@ public class ExerciseInfoActivity extends AppCompatActivity {
     TextView exerciseID;
     ImageView exerciseImage1;
     ImageView exerciseImage2;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,6 +52,9 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         exerciseTitle = (TextView) findViewById(R.id.exercise_title);
         exerciseDescription = (TextView) findViewById(R.id.exercise_description);
         exerciseID = (TextView) findViewById(R.id.exercise_id);
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid()).child("Exercises");
 
         //Get extras from previous activity
         Bundle extras = getIntent().getExtras();
@@ -232,6 +241,12 @@ public class ExerciseInfoActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    public void saveExercise(View view) {
+        String name =  exerciseTitle.getText().toString();
+        mDatabase.setValue(name);
+
     }
 
 }
