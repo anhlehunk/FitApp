@@ -11,9 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -95,7 +92,7 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.run:
-                startActivity(new Intent(this, RunningActivity.class));
+                startActivity(new Intent(this, ListActivity.class));
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));

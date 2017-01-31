@@ -26,8 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StepCountActivity"
-                  android:noHistory="true"/>
+        <activity
+            android:name=".StepCountActivity"
+            android:noHistory="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,12 +42,13 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".RunningActivity"
+            android:name=".ListActivity"
             android:label="@string/title_activity_running" />
         <activity android:name=".StatActivity" />
         <activity android:name=".ExerciseActivity" />
         <activity android:name=".ExerciseFoundActivity" />
-        <activity android:name=".ExerciseInfoActivity"></activity>
+        <activity android:name=".ExerciseInfoActivity" />
+        <activity android:name=".SaveActivity"></activity>
     </application>
 
 </manifest>

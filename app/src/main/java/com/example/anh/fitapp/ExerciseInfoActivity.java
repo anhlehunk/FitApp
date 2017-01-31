@@ -29,8 +29,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.ExecutionException;
 
-import static android.R.attr.x;
-
 public class ExerciseInfoActivity extends AppCompatActivity {
 
     String searched_id;
@@ -80,7 +78,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.run:
-                startActivity(new Intent(this, RunningActivity.class));
+                startActivity(new Intent(this, ListActivity.class));
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
@@ -245,7 +243,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
 
     public void saveExercise(View view) {
         String name =  exerciseTitle.getText().toString();
-        mDatabase.setValue(name);
+        mDatabase.child(name).setValue(true);
 
     }
 

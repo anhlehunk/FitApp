@@ -13,14 +13,17 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#CCFFFFFF"
+        android:layout_above="@+id/saveButton"
+
         android:id="@+id/scroll">
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:weightSum="1.0"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
     <TextView
         android:layout_width="match_parent"
@@ -78,6 +81,18 @@
         android:text="save"
         android:onClick="saveExercise"
         android:fontFamily="sans-serif-thin"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:id="@+id/saveButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/saveButton"
+        android:layout_alignParentBottom="true"
+        android:text="List"
+        android:textColor="@color/black"
+        android:onClick="saveList"
+        android:fontFamily="sans-serif-thin"
+        />
 
 </RelativeLayout>

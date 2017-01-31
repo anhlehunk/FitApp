@@ -1,17 +1,12 @@
 package com.example.anh.fitapp;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static android.widget.Toast.makeText;
-import static com.firebase.ui.auth.ui.AcquireEmailHelper.RC_SIGN_IN;
 
 public class MainActivity extends Activity implements GoogleApiClient.OnConnectionFailedListener{
 
@@ -102,7 +96,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
     }
 
     public void run(View view) {
-        Intent intent = new Intent(this, RunningActivity.class);
+        Intent intent = new Intent(this, SaveActivity.class);
         startActivity(intent);
         this.finish();
     }
