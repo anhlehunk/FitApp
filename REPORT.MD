@@ -32,7 +32,7 @@ The navigation consists of icons. This choice will be discussed later on.
 ## In Detail
 
 ## Challenges
-
+The first challenge was thinking about what I should implement and what is possible in 4 weeks of time. I've looked up how to build a step counter first. I thought this was easier than it would be. The variable that count steps, that I use to show the user, is not resetable by itself. It is a variable in the sensor of the device itself, so I couldnt set "variable = 0" when pressing a button. It took some time to find a way to solve this problem.
 ## Decisions
 
 
