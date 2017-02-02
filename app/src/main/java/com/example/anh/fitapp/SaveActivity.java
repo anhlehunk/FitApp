@@ -36,7 +36,6 @@ public class SaveActivity extends AppCompatActivity {
     ListView lv;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listID = new ArrayList<>();
-
     SaveAdapter arrayAdapter;
 
     @Override
@@ -52,42 +51,32 @@ public class SaveActivity extends AppCompatActivity {
         SaveActivity.this.lv.setAdapter(arrayAdapter);
         searchExercise();
         deleteExercise();
-
-
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getKey();
                 String valueID = (String) dataSnapshot.getValue();
-                Log.d("check", valueID);
-
                 list.add(value);
                 listID.add(valueID);
-
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,9 +111,6 @@ public class SaveActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView nameView = (TextView) view.findViewById(R.id.exercise_name);
                 final String exerciseName = nameView.getText().toString();
-
-
-
                 mDatabase.child(exerciseName).setValue(null);
                 finish();
                 overridePendingTransition(0, 0);
@@ -134,19 +120,10 @@ public class SaveActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 Toast succesful = makeText(SaveActivity.this, exerciseName + " is deleted!" , Toast.LENGTH_SHORT);
                 succesful.show();
-
-
-
-
-
-
-
-
-
                 return false;
             }
-            });
-        }
+        });
+    }
 
     public void searchExercise(){
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -157,14 +134,10 @@ public class SaveActivity extends AppCompatActivity {
                 String exerciseName = nameView.getText().toString();
                 TextView idView = (TextView) view.findViewById(R.id.exercise_id);
                 String exerciseID= idView.getText().toString();
-
                 Intent searchExercise = new Intent(SaveActivity.this, ExerciseInfoActivity.class);
-
                 searchExercise.putExtra("searched_exercise", exerciseName);
                 searchExercise.putExtra("searched_exercise_id", exerciseID);
                 startActivity(searchExercise);
-
-
             }
         });
     }
@@ -183,7 +156,6 @@ public class SaveActivity extends AppCompatActivity {
         })
                 .setActionTextColor(Color.WHITE);
         snackBar.show();
-    }
-
+        }
     }
 

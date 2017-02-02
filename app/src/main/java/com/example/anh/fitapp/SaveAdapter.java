@@ -22,7 +22,6 @@ public class SaveAdapter extends BaseAdapter {
         this.namelist = namelist;
         this.context = context;
         this.idlist = idlist;
-
     }
 
     @Override

@@ -54,8 +54,6 @@ class ExerciseAdapter extends BaseAdapter {
         TextView art_id = (TextView) view.findViewById(R.id.muscle_id);
         //textview with invisible ID
         art_id.setText(idlist.get(position));
-
-
         return view;
     }
 }

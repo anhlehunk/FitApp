@@ -78,8 +78,7 @@ public class ExerciseInfoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {switch (item.getItemId()){
             case R.id.home:
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
@@ -125,7 +124,6 @@ public class ExerciseInfoActivity extends AppCompatActivity {
                 if (jsonObject.has("Error")) {
                     Log.d("oops", "foutje");
                 }
-
                 else{
                     try {
                         //loops through all the results and add the title, image link, and unique id to two different lists
@@ -149,13 +147,10 @@ public class ExerciseInfoActivity extends AppCompatActivity {
                             exerciseID.setText(id);
                             exerciseDescription.setText(description);
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -173,13 +168,11 @@ public class ExerciseInfoActivity extends AppCompatActivity {
                 BufferedReader reader2 = new BufferedReader(new InputStreamReader(input2));
                 StringBuilder result2 = new StringBuilder();
                 String line2;
-
                 while((line2 = reader2.readLine()) != null) {
                     result2.append(line2);
                 }
                 return String.valueOf(result2);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Log.d("MainActivity", "Error" + e);
                 return null;
             }
@@ -189,21 +182,18 @@ public class ExerciseInfoActivity extends AppCompatActivity {
             try {
                 //pick out the needed data out of the query
                 JSONObject jsonObject = new JSONObject(result);
-
                 if (jsonObject.has("Error")) {
                 } else{
                     try {
                         //loops through all the results and add the title, image link, and unique id to two different lists
                         JSONArray jsonArray = jsonObject.getJSONArray("results");
                         if (jsonArray.length() == 0){
-                            Log.d("niks," , "niks");
                         } else{
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObj = jsonArray.getJSONObject(i);
                             String parseID = jObj.getString("id");
                             int foo= Integer.parseInt(parseID);
-
                             //If there are 2 images, one always has an even digit and the other an uneven digit
                             if ( (foo % 2) == 0 ){
                             String image = jObj.getString("image");
@@ -211,9 +201,8 @@ public class ExerciseInfoActivity extends AppCompatActivity {
                             } else{
                             String image = jObj.getString("image");
                             Picasso.with(ExerciseInfoActivity.this).load(image.toString()).resize(300, 400).into(exerciseImage2);}
-                        }}
-
-
+                            }
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

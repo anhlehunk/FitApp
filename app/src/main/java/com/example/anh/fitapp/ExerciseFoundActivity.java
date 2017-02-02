@@ -81,8 +81,7 @@ public class ExerciseFoundActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) { switch (item.getItemId()){
             case R.id.home:
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
@@ -126,7 +125,6 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
 
                 if (jsonObject.has("Error")) {
-                    Log.d("oops", "foutje");
                 }
 
                 else{
@@ -144,7 +142,6 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
                 //set adapter on the listview
                 ExerciseAdapter arrayAdapter = new ExerciseAdapter(ExerciseFoundActivity.this, namelist, idlist);
                 ExerciseFoundActivity.this.lv.setAdapter(arrayAdapter);
@@ -154,10 +151,6 @@ public class ExerciseFoundActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 
     public void executeTask() {
         try {

@@ -64,11 +64,8 @@ public class ExerciseActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView idView = (TextView) view.findViewById(R.id.muscle_id);
                 muscleID = idView.getText().toString();
-
-
                 switch(muscleID){
                     case "1": image.setImageDrawable(res.getDrawable(R.drawable.id1));
-
                         break;
                     case "2": image.setImageDrawable(res.getDrawable(R.drawable.id2));
                         break;
@@ -116,17 +113,17 @@ public class ExerciseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.home:
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-            case R.id.run:
-                startActivity(new Intent(this, SaveActivity.class));
-                return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
                 return true;
             case R.id.step:
                 startActivity(new Intent(this, StepCountActivity.class));
+                return true;
+            case R.id.home:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.run:
+                startActivity(new Intent(this, SaveActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -145,7 +142,6 @@ public class ExerciseActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                //the url is built with the input of the user
                 InputStream input = new URL("https://wger.de/api/v2/muscle/?format=json").openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
                 StringBuilder result = new StringBuilder();
@@ -168,9 +164,7 @@ public class ExerciseActivity extends AppCompatActivity {
             try {
                 //pick out the needed data out of the query
                 JSONObject jsonObject = new JSONObject(result);
-
                 if (jsonObject.has("Error")) {
-                    Log.d("oops", "foutje");
                 } else{
                     try {
                         //loops through all the results and add the title, image link, and unique id to two different lists
@@ -205,6 +199,6 @@ public class ExerciseActivity extends AppCompatActivity {
         searchExercise.putExtra("searched_name", muscleName);
         startActivity(searchExercise);
         }
-        }
+    }
 
 

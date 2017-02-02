@@ -85,8 +85,6 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
-
-
         totalText = (TextView) findViewById(R.id.total);
         goalSave = prefs.getInt("stepsEntered", enteredStepsInt);
         editTextStep = (EditText) findViewById(R.id.editStep);
@@ -117,20 +115,18 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                     setGoal.setText(enteredSteps);
                     setGoal.setVisibility(View.VISIBLE);
                     editTextStep.setVisibility(View.GONE);
-
-
                 } else {
                     editTextStep.setVisibility(View.GONE);
-                }}
-                }});
+                    }
+                }
+            }
+        });
 
 
         prg =(ProgressBar) findViewById(R.id.progressBar) ;
         count = (TextView) findViewById(R.id.count);
         countStep = (TextView) findViewById(R.id.countStep);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,18 +141,15 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
             case R.id.home:
                 startActivity(new Intent(this, MainActivity.class));
                 StepCountActivity.this.finish();
-
                 return true;
             case R.id.exercise:
                 startActivity(new Intent(this, ExerciseActivity.class));
                 StepCountActivity.this.finish();
-
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
                 StepCountActivity.this.finish();
                 return true;
-
             case R.id.run:
                 startActivity(new Intent(this, SaveActivity.class));
                 StepCountActivity.this.finish();
@@ -172,7 +165,6 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                 getSharedPreferences(myPreference, MODE_PRIVATE).edit();
         editor.putInt("stepsTotalReset", stepsTotalReset);
         editor.commit();
-
         totalText.setText(String.valueOf(0));
     }
 
@@ -183,7 +175,6 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                 .setAction("Yes!", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         stepsAtReset = stepsInSensor;
                         SharedPreferences.Editor editor =
                                 getSharedPreferences(myPreference, MODE_PRIVATE).edit();
@@ -194,7 +185,6 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                         countStep.setText(String.valueOf(0));
                         count.setText(String.valueOf(0));
                         prg.setProgress(0);
-
                     }
                 })
                 .setActionTextColor(Color.WHITE)
@@ -214,7 +204,6 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
             if (countSensor != null) {
                 sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
             }
-
             else{
                 Toast.makeText(this, "Sensor not available", Toast.LENGTH_LONG).show();
             }
@@ -228,11 +217,8 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         mDatabase.child("Steps").setValue(saveData);
     }
 
-
     @Override
     public void onSensorChanged(SensorEvent event)   {
-
-
         prg =(ProgressBar) findViewById(R.id.progressBar) ;
         button = (Button) findViewById(R.id.enterSteps);
 
@@ -241,12 +227,8 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
             stepsSinceReset = stepsInSensor - stepsAtReset;
             stepsTotal = stepsInSensor - stepsTotalReset;
             saveData = totalText.getText().toString();
-
-
-
             double num = stepsSinceReset;
             double sum = stringNum;
-
             String str = String.format("%.1f", (num/sum) * 100.0);
             countStep.setText(String.valueOf(stepsSinceReset));
             totalText.setText(String.valueOf(stepsTotal));
@@ -259,16 +241,12 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
             mDatabase.child("Steps").setValue(saveData);
         }else{
             event.values[0] = 0;
-        }}
+        }
+    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
-
-
-
-
-
 }
 
 

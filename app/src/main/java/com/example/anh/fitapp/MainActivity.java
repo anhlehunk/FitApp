@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,25 +26,17 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     private static int RC_SIGN_IN = 0;
     private static String TAG = "MAIN_ACTIVITY";
-    private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
             //if already logged in
-
             mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
             String name = mAuth.getCurrentUser().getEmail();
             mDatabase.child("Email").setValue(name);
@@ -63,10 +54,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                             AuthUI.GOOGLE_PROVIDER)
                     .build(), RC_SIGN_IN);
             }
-
-
-
-
     }
 
 
@@ -78,9 +65,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             //Check if the login is succesful
             if(resultCode == RESULT_OK){
                 String userEmail = mAuth.getCurrentUser().getEmail();
-                Log.d("AUTH", userEmail);
-
-                // Toast
                 Toast succesful = makeText(MainActivity.this, "Logged in as: " + userEmail , Toast.LENGTH_SHORT);
                 succesful.show();
                 TextView currentUser = (TextView) findViewById(R.id.loginInfo);
@@ -88,7 +72,9 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             }
             else{
                 Log.d("AUTH","not Authenticated");
-            }}}
+            }
+        }
+    }
 
 
     public void step(View view) {
@@ -140,7 +126,6 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                                         .setProviders(
                                                 AuthUI.EMAIL_PROVIDER,
                                                 AuthUI.GOOGLE_PROVIDER)
-
                                         .build(), RC_SIGN_IN);
                                 //toast
                                 Toast succesful = makeText(MainActivity.this, "Logged out" , Toast.LENGTH_SHORT);
@@ -151,7 +136,5 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
         })
                 .setActionTextColor(Color.WHITE);
         snackBar.show();
-
-
     }
 }

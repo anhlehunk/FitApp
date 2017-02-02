@@ -32,10 +32,8 @@ public class StatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stat);
-
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid()).child("Steps");
         stepView = (TextView) findViewById(R.id.totalSteps);
@@ -43,7 +41,6 @@ public class StatActivity extends AppCompatActivity {
         prg1 =(ProgressBar) findViewById(R.id.progressBar2) ;
         percentage1 = (TextView) findViewById(R.id.percentage1);
         percentage2 = (TextView) findViewById(R.id.percentage2);
-
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,7 +56,6 @@ public class StatActivity extends AppCompatActivity {
                 percentage1.setText(str + "%");
                 prg1.setProgress((int) ((float) Integer.parseInt(stepStat)/5000 * 100));
                 percentage2.setText(str2 + "%");
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -84,15 +80,15 @@ public class StatActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ExerciseActivity.class));
                 finish();
                 return true;
+            case R.id.run:
+                startActivity(new Intent(this, SaveActivity.class));
+                finish();
+                return true;
             case R.id.step:
                 startActivity(new Intent(this, StepCountActivity.class));
                 finish();
                 return true;
 
-            case R.id.run:
-                startActivity(new Intent(this, SaveActivity.class));
-                finish();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
