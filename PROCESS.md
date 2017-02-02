@@ -59,6 +59,24 @@ I thought about the design of the app, and how the navigation would work. I deci
 I designed the icons and the background themes of the app.
 
 ### Monday and tuesday
-I changed the UI of my app, to what I find more appealing to the eye. I have chosen for a dark theme with the use of simple flatdesign icons to navigate. I also made it possible for the user to set a certain goal for the step counter activity. The amount of steps set by the user will be saved locally. 
+I changed the UI of my app, to what I find more appealing to the eye. I have chosen for a dark theme with the use of simple flatdesign icons to navigate. I also made it possible for the user to set a certain goal for the step counter activity. The amount of steps set by the user will be saved locally. I set up FireBase to make it able for users to log in. 
+
+### Wednesday and Thursday
+I tried to make the running activity work. I stumbled on this, because this was more difficult than I expected. The tutorial I followed did not result in something i'd like it to result to. Instead of the running activity I've decided to focus on the parts I know sure of that they will be working. I've changed the number of steps inside the circular progressbar into a percentage. And I implemented a number of steps counted that could't be resetted. This digit will be the total amount of steps. I made a beginning with the achievements activity. It is currently not working perfectly.
+
+### Friday
+Presentation, and further bug fixing with with the step counter. The step counter caused more difficulties than I expected.
+
+## Week 4
+### Monday
+The text in the spinner list in the exercises activity contains musclegroup that are in latin. Translating the latin words took more time than I expected. At last I found a solution that only translated the words and did not affect anything from the rest of the activity. 
+
+### Tuesday
+The total amount of steps will be updated every time the stepcount activity is running. The data that is stored locally will also be stored in FireBase.
+
+### Wednesday
+Fixed a major bug in the stepcount activity that caused the app to crash. The activity didn't saved the right number to FireBase and sometimes even "0". This caused a nullpoint exception in the achievements activity.
+
+
 
 
