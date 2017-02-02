@@ -77,6 +77,9 @@ The total amount of steps will be updated every time the stepcount activity is r
 ### Wednesday
 Fixed a major bug in the stepcount activity that caused the app to crash. The activity didn't saved the right number to FireBase and sometimes even "0". This caused a nullpoint exception in the achievements activity.
 
+### Thursday
+Finishing touches
+
 
 
 
