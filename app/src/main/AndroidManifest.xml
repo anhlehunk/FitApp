@@ -41,9 +41,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".ListActivity"
-            android:label="@string/title_activity_running" />
         <activity android:name=".StatActivity" />
         <activity android:name=".ExerciseActivity" />
         <activity android:name=".ExerciseFoundActivity" />

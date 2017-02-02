@@ -84,15 +84,6 @@
         android:textColor="@color/black"
         android:id="@+id/saveButton"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/saveButton"
-        android:layout_alignParentBottom="true"
-        android:text="List"
-        android:textColor="@color/black"
-        android:onClick="saveList"
-        android:fontFamily="sans-serif-thin"
-        />
+
 
 </RelativeLayout>

@@ -2,8 +2,10 @@ package com.example.anh.fitapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -48,14 +50,14 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
             String name = mAuth.getCurrentUser().getEmail();
             mDatabase.child("Email").setValue(name);
             TextView currentUser = (TextView) findViewById(R.id.loginInfo);
-            currentUser.setText(mAuth.getCurrentUser().getEmail());
+            currentUser.setText("Welcome,  " + mAuth.getCurrentUser().getDisplayName());
 
         } else {
             //If not logged in, the login screen will be created
             startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     //assign a theme to the loginscreen
-                    //.setTheme(R.style.FirebaseLoginTheme)
+                    .setTheme(R.style.FirebaseLoginTheme)
                     .setProviders(
                             AuthUI.EMAIL_PROVIDER,
                             AuthUI.GOOGLE_PROVIDER)
@@ -82,7 +84,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                 Toast succesful = makeText(MainActivity.this, "Logged in as: " + userEmail , Toast.LENGTH_SHORT);
                 succesful.show();
                 TextView currentUser = (TextView) findViewById(R.id.loginInfo);
-                currentUser.setText(mAuth.getCurrentUser().getEmail());
+                currentUser.setText("Welcome,  " + mAuth.getCurrentUser().getDisplayName());
             }
             else{
                 Log.d("AUTH","not Authenticated");
@@ -115,30 +117,41 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
+    public void signOut(View view) {
 
-    public void signOut(View v) {
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.signOut),
+                "Are you sure you want to log out?",
+                Snackbar.LENGTH_INDEFINITE);
 
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("AUTH", "USER LOGGED OUT");
-                        startActivityForResult(AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                //.setTheme(R.style.FirebaseLoginTheme)
-                                .setProviders(
-                                        AuthUI.EMAIL_PROVIDER,
-                                        AuthUI.GOOGLE_PROVIDER)
+        snackBar.setAction("Yes!", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthUI.getInstance()
+                        .signOut(MainActivity.this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("AUTH", "USER LOGGED OUT");
+                                startActivityForResult(AuthUI.getInstance()
+                                        .createSignInIntentBuilder()
+                                        .setTheme(R.style.FirebaseLoginTheme)
+                                        .setProviders(
+                                                AuthUI.EMAIL_PROVIDER,
+                                                AuthUI.GOOGLE_PROVIDER)
 
-                                .build(), RC_SIGN_IN);
-                        //toast
-                        Toast succesful = makeText(MainActivity.this, "Logged out" , Toast.LENGTH_SHORT);
-                        succesful.show();
-                    }
-                });
+                                        .build(), RC_SIGN_IN);
+                                //toast
+                                Toast succesful = makeText(MainActivity.this, "Logged out" , Toast.LENGTH_SHORT);
+                                succesful.show();
+                            }
+                        });
+            }
+        })
+                .setActionTextColor(Color.WHITE);
+        snackBar.show();
+
+
     }
 }

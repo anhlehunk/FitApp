@@ -11,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.icu.text.DecimalFormat;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -62,22 +63,19 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     EditText editTextStep;
     TextView setGoal;
     int stringNum;
-    private Button mFirebaseBtn;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-
     int stepsSinceReset;
     int stepsTotalReset;
     int stepsTotal;
     String saveData;
-
-
+    SharedPreferences prefs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences prefs = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        prefs = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         editor = prefs.edit();
         stepsAtReset = prefs.getInt("stepsAtReset", 0);
         stepsTotalReset = prefs.getInt("stepsTotalReset", 0);
@@ -89,36 +87,14 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid());
 
 
-        Timer myTimer = new Timer();
-        myTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                mDatabase.child("Steps").setValue(saveData);
-
-
-            }
-        }, 0, 1000);
-
-       /* mFirebaseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String name = mAuth.getCurrentUser().getEmail();
-                mDatabase.child("Email").setValue(name);
-
-
-            }
-        }); */
-
-
-
         totalText = (TextView) findViewById(R.id.total);
         goalSave = prefs.getInt("stepsEntered", enteredStepsInt);
         editTextStep = (EditText) findViewById(R.id.editStep);
         setGoal = (TextView) findViewById(R.id.setGoal);
         setGoal.setText(String.valueOf(goalSave));
         stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
+        Log.d("kijken2", String.valueOf(stepsTotal));
+        totalText.setText(String.valueOf(stepsTotal));
         button = (Button) findViewById(R.id.enterSteps);
         button.setOnClickListener(new View.OnClickListener()
         {
@@ -144,10 +120,7 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
 
 
                 } else {
-
                     editTextStep.setVisibility(View.GONE);
-                    //setGoal.setVisibility(View.VISIBLE);
-
                 }}
                 }});
 
@@ -183,6 +156,11 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
                 startActivity(new Intent(this, StatActivity.class));
                 StepCountActivity.this.finish();
                 return true;
+
+            case R.id.run:
+                startActivity(new Intent(this, SaveActivity.class));
+                StepCountActivity.this.finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -199,16 +177,30 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     }
 
     public void reset(View v) {
-        stepsAtReset = stepsInSensor;
-        SharedPreferences.Editor editor =
-        getSharedPreferences(myPreference, MODE_PRIVATE).edit();
-        editor.putInt("stepsAtReset", stepsAtReset);
-        editor.commit();
+        Snackbar.make(findViewById(R.id.reset),
+                "Are you sure you want to reset?",
+                Snackbar.LENGTH_LONG)
+                .setAction("Yes!", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        // you can now display 0:
-        countStep.setText(String.valueOf(0));
-        count.setText(String.valueOf(0));
-        prg.setProgress(0);
+                        stepsAtReset = stepsInSensor;
+                        SharedPreferences.Editor editor =
+                                getSharedPreferences(myPreference, MODE_PRIVATE).edit();
+                        editor.putInt("stepsAtReset", stepsAtReset);
+                        editor.commit();
+
+                        // you can now display 0:
+                        countStep.setText(String.valueOf(0));
+                        count.setText(String.valueOf(0));
+                        prg.setProgress(0);
+
+                    }
+                })
+                .setActionTextColor(Color.WHITE)
+                .show();
+
+
 
     }
 
@@ -232,10 +224,15 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
     protected void onPause() {
         super.onPause();
         activityRunning = false;
+        saveData = totalText.getText().toString();
+        mDatabase.child("Steps").setValue(saveData);
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event)   {
+
+
         prg =(ProgressBar) findViewById(R.id.progressBar) ;
         button = (Button) findViewById(R.id.enterSteps);
 
@@ -252,12 +249,14 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
 
             String str = String.format("%.1f", (num/sum) * 100.0);
             countStep.setText(String.valueOf(stepsSinceReset));
+            totalText.setText(String.valueOf(stepsTotal));
             stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
             float percentage = ((float) stepsSinceReset / stringNum) * 100;
             count.setText(str + "%");
-            totalText.setText(String.valueOf(stepsTotal));
             Log.d("check", String.valueOf(percentage));
             prg.setProgress((int) percentage);
+            Log.d("kijken", saveData);
+            mDatabase.child("Steps").setValue(saveData);
         }else{
             event.values[0] = 0;
         }}

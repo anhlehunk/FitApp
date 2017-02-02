@@ -35,15 +35,11 @@ public class ExerciseFoundActivity extends AppCompatActivity {
     public ArrayList<String> idlist;
     public ArrayList<String> namelist;
     public ListView lv;
-    String exerciseName;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_found);
-
 
         //Get extras from previous activity
         Bundle extras = getIntent().getExtras();
@@ -71,7 +67,6 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                 String exerciseID = idView.getText().toString();
 
                 Intent searchExercise = new Intent(ExerciseFoundActivity.this, ExerciseInfoActivity.class);
-
                 searchExercise.putExtra("searched_exercise", exerciseName);
                 searchExercise.putExtra("searched_exercise_id", exerciseID);
                 startActivity(searchExercise);
@@ -92,7 +87,7 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.run:
-                startActivity(new Intent(this, ListActivity.class));
+                startActivity(new Intent(this, SaveActivity.class));
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
@@ -104,13 +99,10 @@ public class ExerciseFoundActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public class ExercisesTask extends AsyncTask<String, Object, String> {
 
         @Override
         protected String doInBackground(String... params) {
-
-
             try {
                 //the url is built with the input of the user
                 InputStream input = new URL("https://wger.de/api/v2/exercise/?format=json&language=2&muscles=" + searched_id).openStream();
@@ -148,11 +140,10 @@ public class ExerciseFoundActivity extends AppCompatActivity {
                             namelist.add(name);
                             idlist.add(id);
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }}
+                    }
+                }
 
                 //set adapter on the listview
                 ExerciseAdapter arrayAdapter = new ExerciseAdapter(ExerciseFoundActivity.this, namelist, idlist);
@@ -160,7 +151,8 @@ public class ExerciseFoundActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-            }}
+            }
+        }
     }
 
 
@@ -168,7 +160,6 @@ public class ExerciseFoundActivity extends AppCompatActivity {
 
 
     public void executeTask() {
-
         try {
             new ExercisesTask().execute().get();
         } catch (InterruptedException e) {
@@ -177,9 +168,4 @@ public class ExerciseFoundActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }

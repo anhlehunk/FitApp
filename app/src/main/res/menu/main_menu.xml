@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="schemas.android.com/tools"
+    tools:context="com.example.anh.fitapp.StepCountActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <item
+        android:id="@+id/exercise"
+        android:title="home"
+        android:icon="@drawable/exercisebutton1"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/stat"
+        android:title="home"
+        android:icon="@drawable/statbutton1"
+        app:showAsAction="always"
+    />
+
+    <item
+        android:id="@+id/run"
+        android:title="home"
+        android:icon="@drawable/runbutton1"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/home"
+        android:title="home"
+        android:icon="@drawable/home"
+        app:showAsAction="always"
+        />
+</menu>

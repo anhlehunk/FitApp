@@ -1,5 +1,6 @@
 package com.example.anh.fitapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,11 @@ public class StatActivity extends AppCompatActivity {
                 return true;
             case R.id.step:
                 startActivity(new Intent(this, StepCountActivity.class));
+                finish();
+                return true;
+
+            case R.id.run:
+                startActivity(new Intent(this, SaveActivity.class));
                 finish();
                 return true;
         }

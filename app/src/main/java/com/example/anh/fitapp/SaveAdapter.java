@@ -18,9 +18,10 @@ public class SaveAdapter extends BaseAdapter {
     private ArrayList<String> idlist;
     private Context context;
 
-    SaveAdapter(Context context, ArrayList<String> namelist){
+    SaveAdapter(Context context, ArrayList<String> namelist, ArrayList<String> idlist){
         this.namelist = namelist;
         this.context = context;
+        this.idlist = idlist;
 
     }
 
@@ -48,11 +49,11 @@ public class SaveAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.item_saved, null);
         }
         TextView title = (TextView) view.findViewById(R.id.exercise_name);
-        // Textview with the title of the art.
+        // Textview with the title of the exercise
         title.setText(namelist.get(position));
 
-
-
+        TextView titleID = (TextView) view.findViewById(R.id.exercise_id);
+        titleID.setText(idlist.get(position));
         return view;
     }
 }

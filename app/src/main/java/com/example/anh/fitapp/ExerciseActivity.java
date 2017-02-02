@@ -2,7 +2,9 @@ package com.example.anh.fitapp;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.R.attr.id;
 import static android.widget.Toast.makeText;
 
 public class ExerciseActivity extends AppCompatActivity {
@@ -42,7 +45,6 @@ public class ExerciseActivity extends AppCompatActivity {
     String muscleID;
     TextView translatedMuscleView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,24 +58,19 @@ public class ExerciseActivity extends AppCompatActivity {
         namelist = new ArrayList<>();
         b1 = (Button) findViewById(R.id.search_id);
         translatedMuscleView = (TextView) findViewById(R.id.translated_muscle_name);
-
-
         spinner = (Spinner)findViewById(R.id.searchlist);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView idView = (TextView) view.findViewById(R.id.muscle_id);
-                TextView muscleView = (TextView) findViewById(R.id.muscle_name);
                 muscleID = idView.getText().toString();
-                Toast succesful = makeText(ExerciseActivity.this, muscleID , Toast.LENGTH_SHORT);
-                succesful.show();
+
 
                 switch(muscleID){
                     case "1": image.setImageDrawable(res.getDrawable(R.drawable.id1));
 
                         break;
                     case "2": image.setImageDrawable(res.getDrawable(R.drawable.id2));
-
                         break;
                     case "3": image.setImageDrawable(res.getDrawable(R.drawable.id3));
                         break;
@@ -101,21 +98,13 @@ public class ExerciseActivity extends AppCompatActivity {
                         break;
                     case "15": image.setImageDrawable(res.getDrawable(R.drawable.id15));
                         break;
-
-
                 }
-
-
-
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,7 +120,7 @@ public class ExerciseActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.run:
-                startActivity(new Intent(this, ListActivity.class));
+                startActivity(new Intent(this, SaveActivity.class));
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
@@ -164,7 +153,6 @@ public class ExerciseActivity extends AppCompatActivity {
                 while((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-
                 return String.valueOf(result);
             }
             catch (IOException e) {
@@ -183,9 +171,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 if (jsonObject.has("Error")) {
                     Log.d("oops", "foutje");
-                }
-
-                else{
+                } else{
                     try {
                         //loops through all the results and add the title, image link, and unique id to two different lists
                         JSONArray jsonArray = jsonObject.getJSONArray("results");
@@ -195,43 +181,30 @@ public class ExerciseActivity extends AppCompatActivity {
                             String id = jObj.getString("id");
                             namelist.add(name);
                             idlist.add(id);
-
                         }
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }}
+                    }
+                }
 
                 //set adapter on the listview
                 ExerciseMuscleAdapter arrayAdapter = new ExerciseMuscleAdapter(ExerciseActivity.this, namelist, idlist);
                 ExerciseActivity.this.spinner.setAdapter(arrayAdapter);
-
                 } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
         }
-
-}
+    }
     public void searchExercise(View view) {
         TextView idView = (TextView) findViewById(R.id.muscle_id);
         TextView muscleView = (TextView) findViewById(R.id.muscle_name);
-
-
         String muscleID = idView.getText().toString();
         String muscleName = muscleView.getText().toString();
-
-
-
         Intent searchExercise = new Intent(this, ExerciseFoundActivity.class);
         searchExercise.putExtra("searched_id", muscleID);
         searchExercise.putExtra("searched_name", muscleName);
         startActivity(searchExercise);
-
-
-        }}
+        }
+        }
 
 

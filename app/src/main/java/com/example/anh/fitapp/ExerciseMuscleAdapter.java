@@ -108,12 +108,7 @@ class ExerciseMuscleAdapter extends BaseAdapter {
             case "15": ;
                 translatedMuscleView.setText("Scholspieren");
                 break;
-
-
         }
-
-
-
         return view;
     }
 }

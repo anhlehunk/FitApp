@@ -6,26 +6,33 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmain"
     >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginInfo"
         android:textColor="@color/silver"
-        android:textSize="30dp"
+        android:textSize="25dp"
+        android:layout_margin="10dp"
         android:fontFamily="sans-serif-thin"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="40sp"
+        android:layout_height="40sp"
         android:layout_below="@id/loginInfo"
         android:text="logout"
+        android:src="@drawable/logout"
         android:id="@+id/signOut"
         android:onClick="signOut"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         />
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:onClick="step"
         android:src="@drawable/stepbutton1"
         android:layout_alignParentLeft="true"
@@ -37,8 +44,8 @@
         android:layout_marginBottom="5dp"/>
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:onClick="stat"
         android:src="@drawable/statbutton1"
         android:layout_marginRight="26dp"
@@ -49,8 +56,8 @@
         android:layout_marginBottom="5dp"/>
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:onClick="run"
         android:src="@drawable/runbutton1"
         android:layout_marginRight="26dp"
@@ -58,11 +65,11 @@
         android:layout_above="@+id/runButton"
         android:layout_marginBottom="26dp"
 
-        />
+        android:id="@+id/imageView2" />
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:onClick="exercise"
         android:src="@drawable/exercisebutton1"
         android:layout_above="@+id/stepButton"
@@ -71,6 +78,14 @@
         android:id="@+id/imageView"
         android:layout_marginBottom="26dp"/>
 
+    <ImageView
+        android:layout_width="250sp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/name"
+        android:id="@+id/imageView3"
+        android:layout_above="@+id/imageView2"
+        android:layout_toStartOf="@+id/signOut" />
+
     <TextView
         android:id="@+id/steptext"
         android:layout_width="wrap_content"
@@ -78,26 +93,52 @@
         android:text="Step counter"
         android:textSize="20dp"
         android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/stepButton"
         android:layout_alignEnd="@+id/stepButton"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="sans-serif-thin"/>
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/exercisetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exercises"
+        android:textSize="20dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+
+        android:layout_above="@+id/stepButton"
+        android:layout_alignStart="@+id/steptext"
+        android:layout_marginStart="11dp" />
 
     <TextView
         android:id="@+id/statText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Stat"
+        android:text="Achievements"
         android:textColor="@color/silver"
         android:fontFamily="sans-serif-thin"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
 
-        android:layout_alignBaseline="@+id/steptext"
-        android:layout_alignBottom="@+id/steptext"
-        android:layout_alignRight="@+id/runButton"
-        android:layout_alignEnd="@+id/runButton"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="38dp" />
 
+         />
+
+    <TextView
+        android:id="@+id/saved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Saved Exercises"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+        android:layout_marginRight="30dp"
+        android:layout_above="@+id/runButton"
+        android:layout_alignParentRight="true"
+
+        />
 </RelativeLayout>

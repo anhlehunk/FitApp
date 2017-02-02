@@ -1,6 +1,9 @@
 package com.example.anh.fitapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ public class SaveActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ListView lv;
     ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> listID = new ArrayList<>();
 
     SaveAdapter arrayAdapter;
 
@@ -43,16 +48,21 @@ public class SaveActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child(mAuth.getCurrentUser().getUid()).child("Exercises");
 
         //set adapter on the listview
-        arrayAdapter = new SaveAdapter(SaveActivity.this, list);
+        arrayAdapter = new SaveAdapter(SaveActivity.this, list, listID);
         SaveActivity.this.lv.setAdapter(arrayAdapter);
+        searchExercise();
         deleteExercise();
+
 
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getKey();
-                Log.d("check", value );
+                String valueID = (String) dataSnapshot.getValue();
+                Log.d("check", valueID);
+
                 list.add(value);
+                listID.add(valueID);
 
             }
 
@@ -82,7 +92,7 @@ public class SaveActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.exercise_menu,menu);
+        inflater.inflate(R.menu.save_menu,menu);
         return true;
     }
 
@@ -93,7 +103,7 @@ public class SaveActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             case R.id.run:
-                startActivity(new Intent(this, ListActivity.class));
+                startActivity(new Intent(this,ExerciseActivity.class));
                 return true;
             case R.id.stat:
                 startActivity(new Intent(this, StatActivity.class));
@@ -106,25 +116,26 @@ public class SaveActivity extends AppCompatActivity {
     }
 
     public void deleteExercise(){
-
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView nameView = (TextView) view.findViewById(R.id.exercise_name);
-                String exerciseName = nameView.getText().toString();
-                Toast succesful = makeText(SaveActivity.this, exerciseName , Toast.LENGTH_SHORT);
-                succesful.show();
+                final String exerciseName = nameView.getText().toString();
+
+
 
                 mDatabase.child(exerciseName).setValue(null);
-
                 finish();
                 overridePendingTransition(0, 0);
                 Intent intent = getIntent();
-
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
+                Toast succesful = makeText(SaveActivity.this, exerciseName + " is deleted!" , Toast.LENGTH_SHORT);
+                succesful.show();
+
+
 
 
 
@@ -134,12 +145,45 @@ public class SaveActivity extends AppCompatActivity {
 
                 return false;
             }
-
-            // takes the ID and give it to an intent, because the id is required to search for one specific item
-
-
             });
         }
+
+    public void searchExercise(){
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView nameView = (TextView) view.findViewById(R.id.exercise_name);
+                String exerciseName = nameView.getText().toString();
+                TextView idView = (TextView) view.findViewById(R.id.exercise_id);
+                String exerciseID= idView.getText().toString();
+
+                Intent searchExercise = new Intent(SaveActivity.this, ExerciseInfoActivity.class);
+
+                searchExercise.putExtra("searched_exercise", exerciseName);
+                searchExercise.putExtra("searched_exercise_id", exerciseID);
+                startActivity(searchExercise);
+
+
+            }
+        });
+    }
+
+    public void Help(View view) {
+        /* Show a small help snackbar to user */
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.help),
+                "Click to show info, long-click to delete.",
+                Snackbar.LENGTH_INDEFINITE);
+
+        snackBar.setAction("Got it!", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        })
+                .setActionTextColor(Color.WHITE);
+        snackBar.show();
+    }
 
     }
 
