@@ -46,6 +46,25 @@
         android:layout_below="@id/totalSteps"
         android:layout_alignParentRight="true"/>
 
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressdrawable1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/progressBar3"
+        android:layout_below="@+id/textView"
+        />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressdrawable1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/progressBar4"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentRight="true"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +90,7 @@
         android:layout_alignTop="@+id/progressBar1"
         android:layout_marginTop="60dp" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,5 +112,96 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/progressBar2"
         android:layout_alignStart="@+id/progressBar2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24k of magic"
+        android:textSize="25dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+        android:layout_below="@+id/progressBar4"
+        android:layout_alignStart="@+id/progressBar2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  10k hero"
+        android:textSize="25dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+        android:layout_below="@+id/progressBar3"
+        android:id="@+id/titletext"
+        android:layout_marginLeft="15dp"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/help"
+        android:src="@drawable/help"
+        android:onClick="Help"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/done"
+        android:id="@+id/done1"
+        android:layout_alignTop="@+id/progressBar1"
+        android:layout_alignEnd="@+id/progressBar1"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/done"
+        android:id="@+id/done2"
+        android:layout_below="@+id/totalSteps"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/percentage3"
+        android:text=""
+        android:layout_marginLeft="43dp"
+        android:textSize="25dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+        android:layout_alignBottom="@+id/progressBar3"
+        android:layout_marginBottom="58dp" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/done"
+        android:id="@+id/done4"
+        android:visibility="invisible"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/done"
+        android:id="@+id/done3"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/percentage4"
+        android:text=""
+        android:textSize="25dp"
+        android:textColor="@color/silver"
+        android:fontFamily="sans-serif-thin"
+        android:layout_alignBaseline="@+id/percentage3"
+        android:layout_alignBottom="@+id/percentage3"
+        android:layout_alignStart="@+id/percentage2" />
 
 </RelativeLayout>

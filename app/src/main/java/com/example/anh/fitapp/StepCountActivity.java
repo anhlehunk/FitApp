@@ -91,36 +91,9 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
         setGoal = (TextView) findViewById(R.id.setGoal);
         setGoal.setText(String.valueOf(goalSave));
         stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
-        Log.d("kijken2", String.valueOf(stepsTotal));
         totalText.setText(String.valueOf(stepsTotal));
-        button = (Button) findViewById(R.id.enterSteps);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {   enteredSteps = editTextStep.getText().toString();
-                if (Objects.equals(enteredSteps, "")){
-                    editTextStep.setVisibility(View.VISIBLE);
-                    Toast.makeText(StepCountActivity.this, "Please enter your goal!", Toast.LENGTH_SHORT)
-                            .show();
-                } else{
+        enterStep();
 
-                if (editTextStep.getVisibility() == View.VISIBLE){
-                    enteredStepsInt = Integer.parseInt(enteredSteps);
-                    editTextStep.setText("");
-                    count.setVisibility(View.VISIBLE);
-                    editor.remove("enteredSteps");
-                    editor.putInt("stepsEntered", enteredStepsInt);
-                    editor.commit();
-                    setGoal.setText(enteredSteps);
-                    setGoal.setVisibility(View.VISIBLE);
-                    editTextStep.setVisibility(View.GONE);
-                } else {
-                    editTextStep.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
 
 
         prg =(ProgressBar) findViewById(R.id.progressBar) ;
@@ -233,11 +206,14 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
             countStep.setText(String.valueOf(stepsSinceReset));
             totalText.setText(String.valueOf(stepsTotal));
             stringNum = Integer.parseInt(String.valueOf(setGoal.getText()));
+
+            if((int) ((float) stepsSinceReset / stringNum * 100) < 100){
             float percentage = ((float) stepsSinceReset / stringNum) * 100;
             count.setText(str + "%");
-            Log.d("check", String.valueOf(percentage));
             prg.setProgress((int) percentage);
-            Log.d("kijken", saveData);
+            } else{
+                count.setText("Goal achieved!");
+            }
             mDatabase.child("Steps").setValue(saveData);
         }else{
             event.values[0] = 0;
@@ -246,6 +222,38 @@ public class StepCountActivity extends ActionBarActivity implements SensorEventL
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    public void enterStep(){
+
+        button = (Button) findViewById(R.id.enterSteps);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {   enteredSteps = editTextStep.getText().toString();
+                if (Objects.equals(enteredSteps, "")){
+                    editTextStep.setVisibility(View.VISIBLE);
+                    Toast.makeText(StepCountActivity.this, "Please enter your goal!", Toast.LENGTH_SHORT)
+                            .show();
+                } else{
+                    if (editTextStep.getVisibility() == View.VISIBLE){
+                        enteredStepsInt = Integer.parseInt(enteredSteps);
+                        editTextStep.setText("");
+                        count.setVisibility(View.VISIBLE);
+                        editor.remove("enteredSteps");
+                        editor.putInt("stepsEntered", enteredStepsInt);
+                        editor.commit();
+                        setGoal.setText(enteredSteps);
+                        setGoal.setVisibility(View.VISIBLE);
+                        editTextStep.setVisibility(View.GONE);
+                    } else {
+                        editTextStep.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
     }
 }
 

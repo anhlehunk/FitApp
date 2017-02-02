@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements GoogleApiClient.OnConnecti
                         });
             }
         })
-                .setActionTextColor(Color.WHITE);
+                .setActionTextColor(Color.RED);
         snackBar.show();
     }
 }

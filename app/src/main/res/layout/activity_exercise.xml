@@ -36,7 +36,18 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/muscle_image"
         android:text="search"
-        android:onClick="searchExercise"/>
+        android:onClick="searchExercise"
+        android:fontFamily="sans-serif-light"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/help"
+        android:src="@drawable/help"
+        android:onClick="Help"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
 
 
 

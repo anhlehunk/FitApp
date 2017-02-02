@@ -131,7 +131,6 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public class Task extends AsyncTask<String, Object, String> {
 
-
         protected void onPreExecute() {
             button1 = (Button) findViewById(R.id.search_id);
             button1.setVisibility(View.INVISIBLE);
@@ -167,14 +166,14 @@ public class ExerciseActivity extends AppCompatActivity {
                 if (jsonObject.has("Error")) {
                 } else{
                     try {
-                        //loops through all the results and add the title, image link, and unique id to two different lists
+                        //loops through all the results
                         JSONArray jsonArray = jsonObject.getJSONArray("results");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObj = jsonArray.getJSONObject(i);
-                            String name = jObj.getString("name");
                             String id = jObj.getString("id");
-                            namelist.add(name);
+                            String name = jObj.getString("name");
                             idlist.add(id);
+                            namelist.add(name);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -199,6 +198,21 @@ public class ExerciseActivity extends AppCompatActivity {
         searchExercise.putExtra("searched_name", muscleName);
         startActivity(searchExercise);
         }
+
+    public void Help(View view) {
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.help),
+                "Select a muscle group to train from the list at the top!",
+                Snackbar.LENGTH_INDEFINITE);
+
+        snackBar.setAction("Got it!", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        })
+                .setActionTextColor(Color.WHITE);
+        snackBar.show();
+    }
     }
 
 
