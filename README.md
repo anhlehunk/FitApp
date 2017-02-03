@@ -7,30 +7,30 @@ The purpose of this app is motivating the exercise more. The app contains multip
 
 ## Screenshots
 Login
-![](Screenshot_2017-02-03-00-42-27.png)
+![](doc/Screenshot_2017-02-03-00-42-27.png)
 
 Main Activity
-![](Screenshot_2017-02-03-00-42-42.png)
+![](doc/Screenshot_2017-02-03-00-42-42.png)
 
 Exercise Activity
-![](Screenshot_2017-02-03-00-42-53.png)
+![](doc/Screenshot_2017-02-03-00-42-53.png)
 
-![](Screenshot_2017-02-03-00-43-20.png)
+![](doc/Screenshot_2017-02-03-00-43-20.png)
 
-![](Screenshot_2017-02-03-00-43-43.png)
+![](doc/Screenshot_2017-02-03-00-43-43.png)
 
-![](Screenshot_2017-02-03-00-43-54.png)
-![](Screenshot_2017-02-03-00-44-01.png)
+![](doc/Screenshot_2017-02-03-00-43-54.png)
+![](doc/Screenshot_2017-02-03-00-44-01.png)
 Saved exercises
-![](Screenshot_2017-02-03-00-44-43.png)
+![](doc/Screenshot_2017-02-03-00-44-43.png)
 
 Step count
-![](Screenshot_2017-02-03-00-44-54.png)
-![](Screenshot_2017-02-03-00-45-41.png)
+![](doc/Screenshot_2017-02-03-00-44-54.png)
+![](doc/Screenshot_2017-02-03-00-45-41.png)
 Logout notification
-![](Screenshot_2017-02-03-00-45-58.png)
+![](doc/Screenshot_2017-02-03-00-45-58.png)
 Achievement activity
-![](Screenshot_2017-02-03-00-46-24.png)
+![](doc/Screenshot_2017-02-03-00-46-24.png)
 
 ##Sources
 
