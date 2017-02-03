@@ -7,7 +7,7 @@ The purpose of this app is motivating the exercise more. The app contains multip
 
 ## Screenshots
 Login
-![](doc/Screenshot_2017-02-03-00-42-27.png =100x20)
+![](doc/Screenshot_2017-02-03-00-42-27.png)
 
 Main Activity
 ![](doc/Screenshot_2017-02-03-00-42-42.png)
