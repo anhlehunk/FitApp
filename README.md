@@ -6,13 +6,11 @@ Anh Nguyen
 The purpose of this app is motivating the exercise more. The app contains multiple activities for an user to do, whereas (most) free fitness app only consist of one single activity. The user can use the stepcounter, or look for exercises. Stats from using the activities will be used to show progress in the form of achievements.
 
 ## Screenshots
-Login
+
 ![](doc/Screenshot_2017-02-03-00-42-27.png)
 
-Main Activity
 ![](doc/Screenshot_2017-02-03-00-42-42.png)
 
-Exercise Activity
 ![](doc/Screenshot_2017-02-03-00-42-53.png)
 
 ![](doc/Screenshot_2017-02-03-00-43-20.png)
@@ -20,16 +18,17 @@ Exercise Activity
 ![](doc/Screenshot_2017-02-03-00-43-43.png)
 
 ![](doc/Screenshot_2017-02-03-00-43-54.png)
+
 ![](doc/Screenshot_2017-02-03-00-44-01.png)
-Saved exercises
+
 ![](doc/Screenshot_2017-02-03-00-44-43.png)
 
-Step count
 ![](doc/Screenshot_2017-02-03-00-44-54.png)
+
 ![](doc/Screenshot_2017-02-03-00-45-41.png)
-Logout notification
+
 ![](doc/Screenshot_2017-02-03-00-45-58.png)
-Achievement activity
+
 ![](doc/Screenshot_2017-02-03-00-46-24.png)
 
 ##Sources
