@@ -67,7 +67,7 @@ At first, instead of the saved exercises activity, I wanted to have a running ac
 Other decisions are UI related. I chosed a mainly dark theme for my app. For navigation, every activity has an action bar with icons in it to navigate to the according activity. I mainly chose a flatdesign style of UI.
 
 ## If I had more time
-If I had more time I may want to make the running activity work, which I discarded in week 2. It seems like a challenge. But in 4 weeks of time, I couldn't bother doing such a difficult task where this activity is only one of the four activities. I'd also like to give expand the functions for my current activities. The achievent activity could also be expanded with more things to achieve.
+If I had more time I may want to make the running activity work, which I discarded in week 2. It seems like a challenge. But in 4 weeks of time, I couldn't bother doing such a difficult task where this activity is only one of the four activities. I'd also like to expand the functions for my current activities. The achievent activity could also be expanded with more things to achieve.
 
 
 
